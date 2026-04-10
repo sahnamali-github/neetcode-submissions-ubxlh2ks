@@ -1,0 +1,34 @@
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        # METHOD 1
+        # rows = [set() for _ in range(9)]
+        # cols = [set() for _ in range(9)]
+        # squares = [set() for _ in range(9)]
+        # for r in range(9):
+        #     for c in range(9):
+        #         if board[r][c] == ".":
+        #             continue
+        #         elif (board[r][c] in rows[r]) or (board[r][c] in cols[c]) or (board[r][c] in squares[((r//3)*3) + (c//3)]): 
+        #             return False
+        #         rows[r].add(board[r][c])
+        #         cols[c].add(board[r][c])
+        #         squares[(r//3)*3 + c//3 ].add(board[r][c])
+        # return True
+
+        # METHOD 2
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        squares = defaultdict(set)
+        for r in range(9):
+            for c in range(9):
+                if board[r][c] == ".":
+                    continue
+                if (board[r][c] in rows[r]) or (board[r][c] in cols[c]) or (board[r][c] in squares[(r//3, c//3)]):
+                    return False
+                rows[r].add(board[r][c])
+                cols[c].add(board[r][c])
+                squares[(r//3,c//3)].add(board[r][c])
+        return True
+
+
+        
